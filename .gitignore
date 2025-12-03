@@ -1,0 +1,14 @@
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Gradle files
+.gradle/
+build/
+gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Misc
+out/
+*.log
