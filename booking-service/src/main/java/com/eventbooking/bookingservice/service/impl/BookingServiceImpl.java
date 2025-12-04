@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -81,5 +83,33 @@ public class BookingServiceImpl implements BookingService {
 
         return res;
     }
+
+    @Override
+    public void deleteBooking(Long id) {
+        bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookingResponse> getAllBookings() {
+
+        List<Booking> bookings = bookingRepository.findAll();
+
+        return bookings.stream().map(booking -> {
+            // fetch user
+            UserClientResponse user = userClient.getUser(booking.getUserId());
+
+            // fetch event
+            EventClientResponse event = eventClient.getEvent(booking.getEventId());
+
+            // fetch venue
+            VenueApiResponse venueRes = venueClient.getVenue(booking.getVenueId());
+            VenueClientResponse venue = venueRes != null ? venueRes.getData() : null;
+
+            // map
+            return mapper.toResponseWithClients(booking, user, event, venue);
+
+        }).collect(Collectors.toList());
+    }
+
 }
 
