@@ -3,6 +3,8 @@ package com.eventbooking.eventservice.service.impl;
 import com.eventbooking.eventservice.client.UserClient;
 import com.eventbooking.eventservice.client.VenueClient;
 import com.eventbooking.eventservice.dto.*;
+import com.eventbooking.eventservice.dto.client.UserClientResponse;
+import com.eventbooking.eventservice.dto.client.VenueClientResponse;
 import com.eventbooking.eventservice.entity.Event;
 import com.eventbooking.eventservice.exception.EventNotFoundException;
 import com.eventbooking.eventservice.mapper.EventMapper;

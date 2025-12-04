@@ -1,4 +1,4 @@
-package com.eventbooking.eventservice.dto;
+package com.eventbooking.eventservice.dto.client;
 
 import lombok.*;
 
