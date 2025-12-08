@@ -58,4 +58,22 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
+    /**
+     * Confirm a pending booking (Simulates Payment Success)
+     */
+    @PostMapping("/{id}/confirm")
+    public ResponseEntity<BookingResponse> confirmBooking(@PathVariable Long id) {
+        BookingResponse response = bookingService.confirmBooking(id);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Cancel a booking (Simulates Timeout or User Action)
+     */
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
+        bookingService.cancelBooking(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

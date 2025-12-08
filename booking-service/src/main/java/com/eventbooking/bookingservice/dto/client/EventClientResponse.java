@@ -8,8 +8,9 @@ import lombok.*;
 @Builder
 public class EventClientResponse {
     private Long id;
-    private String name;
-    private String email;
-    private String role;
+    private String title;
+    private String description;
     private Long venueId;
+    private Integer capacity;
+    private Double price;
 }

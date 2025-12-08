@@ -12,4 +12,7 @@ public interface EventService {
     List<EventResponse> getEventsByOrganizer(Long organizerId);
     EventResponse updateEvent(Long id, EventRequest eventRequest);
     void deleteEvent(Long id);
+
+    void reduceSeats(Long id, int quantity);
+    void releaseSeats(Long eventId, Integer ticketCount);
 }

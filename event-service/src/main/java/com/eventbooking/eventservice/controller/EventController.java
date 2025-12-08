@@ -40,4 +40,16 @@ public class EventController {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/reduce-seats")
+    public ResponseEntity<Void> reduceSeats(@PathVariable Long id, @RequestParam int quantity) {
+        eventService.reduceSeats(id, quantity);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/release-seats")
+    public ResponseEntity<Void> releaseSeats(@PathVariable Long id, @RequestParam int quantity) {
+        eventService.releaseSeats(id, quantity);
+        return ResponseEntity.ok().build();
+    }
 }

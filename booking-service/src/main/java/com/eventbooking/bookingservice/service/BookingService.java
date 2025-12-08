@@ -11,4 +11,9 @@ public interface BookingService {
     void deleteBooking(Long id);
 
     List<BookingResponse> getAllBookings();
+
+    BookingResponse confirmBooking(Long bookingId);
+
+    // --- NEW METHOD: Cancel (Simulates User cancelling or Timeout) ---
+    void cancelBooking(Long bookingId);
 }
