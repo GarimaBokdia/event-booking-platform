@@ -14,6 +14,7 @@ out/
 *.log
 
 **/build/
+.DS_Store
 
 HELP.md
 .gradle
