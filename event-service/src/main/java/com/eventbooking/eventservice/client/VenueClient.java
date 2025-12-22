@@ -1,6 +1,6 @@
 package com.eventbooking.eventservice.client;
 
-import com.eventbooking.eventservice.dto.VenueApiResponse;
+import com.eventbooking.eventservice.dto.client.VenueApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -33,6 +33,9 @@ public class Event {
     private Instant createdAt;
     private Instant updatedAt;
 
+    @Version // <--- Magic Annotation
+    private Long version;
+
     @PrePersist
     public void prePersist() {
         Instant now = Instant.now();

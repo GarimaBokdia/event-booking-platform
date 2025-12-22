@@ -1,7 +1,6 @@
 package com.eventbooking.eventservice.client;
 
-import com.eventbooking.eventservice.config.BasicAuthConfig;
-import com.eventbooking.eventservice.dto.UserClientResponse;
+import com.eventbooking.eventservice.dto.client.UserClientResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

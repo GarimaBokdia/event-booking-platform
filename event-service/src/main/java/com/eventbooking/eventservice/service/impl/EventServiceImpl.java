@@ -3,14 +3,20 @@ package com.eventbooking.eventservice.service.impl;
 import com.eventbooking.eventservice.client.UserClient;
 import com.eventbooking.eventservice.client.VenueClient;
 import com.eventbooking.eventservice.dto.*;
+import com.eventbooking.eventservice.dto.client.UserClientResponse;
+import com.eventbooking.eventservice.dto.client.VenueClientResponse;
 import com.eventbooking.eventservice.entity.Event;
 import com.eventbooking.eventservice.exception.EventNotFoundException;
 import com.eventbooking.eventservice.mapper.EventMapper;
 import com.eventbooking.eventservice.repository.EventRepository;
 import com.eventbooking.eventservice.service.EventService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -114,4 +120,32 @@ public class EventServiceImpl implements EventService {
     public List<EventResponse> getEventsByOrganizer(Long organizerId) {
         return repository.findByOrganizerId(organizerId).stream().map(mapper::toResponse).collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public void reduceSeats(Long eventId, int quantity) {
+        Event event = repository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
+
+        if (event.getCapacity() < quantity) {
+            throw new RuntimeException("Sold Out! Not enough seats.");
+        }
+
+        event.setCapacity(event.getCapacity() - quantity);
+        repository.save(event);
+        // If 2 users try this at same time, @Version checks the DB.
+        // One will succeed. The other gets ObjectOptimisticLockingFailureException.
+    }
+
+    @Override
+    @Transactional
+    public void releaseSeats(Long eventId, Integer quantity) {
+        Event event = repository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
+
+        event.setCapacity(event.getCapacity() + quantity);
+        repository.save(event);
+    }
+
+
 }
